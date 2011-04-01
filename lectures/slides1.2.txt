@@ -1,0 +1,126 @@
+VLSI System Design (ASIC design w/Verilog)
+
+===Inclass: Create Timing for Adder/Accumulator===
+
+===ASIC Design Methodology===
+ASIC design process is very, very complex 
+  No single step is all that complicated, but...
+  Enormous number of steps involved
+  Many of the steps are repetitious (use a computer!)
+  Scripts make the computer do the grunt work for us
+  [design_flow.pdf]
+---
+
+Scripting provides many advantages 
+  One script works with few mods for many chips (Reusability)
+  A proper scripted build process is: 
+    Self-documenting  (documentation)
+    Completely repeatable
+    Automatic, requiring no human intervention (productivity)
+---
+
+HDLs are used with shell scripting to build ASICs
+  PERL, Bash, TCL used extensively
+  Top level script sets up environment, calls tools, checks output
+  Lower level scripts run individual tools
+---
+
+A simple Bash shell program "doit.sh"
+  Compiles a Verilog file with vlog, then starts the simulator
+
+  #!/bin/bash
+
+  if [ ! -d "work" ] ; then
+    echo "work does not exist, making it"
+    vlib work
+  fi
+
+  if [ -s "adder.sv" ] ; then
+    vlog -novopt adder.sv
+  fi
+
+  echo "***** Simulating adder at rtl level"
+  vsim adder -do adder.do
+---
+
+A simple TCL program "adder.do"
+  Compiles directs the operation of the simulator 
+
+  view signals
+  add wave -r /*
+  force data 16#002
+  force rd_fifo 0
+  force first_select 1
+  force -freeze /clk 1 -repeat 100
+  force -freeze /clk 0 50 -repeat 100
+  force reset_n 0
+  run 90
+  force reset_n 1
+  run 10
+  run 100
+---
+
+
+The design process transforms code to silicon in piece-wise steps
+  At each step, the design is checked against a known correct reference
+  The reference is known as the "golden reference"
+  Can be as simple as a bit vector set or a set of rules to check
+  Each check against the reference is called regression
+  [show steps where regression occurs (design_flow.pdf)]
+---
+
+Testbenches are used to facilitate checking at each step
+  The testbench is a top level module that encompasses the entire design
+  It helps feed data and stimulus to the design
+  It is not synthesible
+  [show picture of a design inside a testbench (testbench.pdf)]
+--- 
+
+---Intro to Verilog---
+Verilog History
+  Developed by Gateway Design Automation about 1984 (Phil Moorby)
+  Proprietary hardware simulation and verification tool only
+  Influenced by HiLo (old HDL language) and C
+  Fault simulation, timing analyzer and synthesis ready about 1987
+  Cadence Design Systems bought Gateway (and Verilog) in 1990
+  Cadence marketed it as a language and simulator, Verilog-XL
+---
+  VHDL became IEEE std in 1987
+    Driven by DOD VHSIC program and based on Ada
+    VHSIC hardware design language (VHDL)
+  Cadence recognized that a closed language was doomed
+  Standardization would win the day eventually
+  Cadence organized Open Verilog International (OVI) and gave it the language
+  Others were trying to alter the language for their benefit (HTML and IE?)
+  IEEE 1364 working group organized to make Verilog IEEE std. 1364-1995
+  Verilog 95 finished in 1995 (duh!)
+---
+  Other Verilog simulators than Cadence Verilog-XL became available about 1992
+  Verilog Compiled Simulator (VCS) from Chronologic was very successful
+  VCS eventually bought by Synopsys
+  Modelsim (Mentor), a very good mixed language simulator
+  The big three simulators (all sign-off quality) are:
+    Modelsim     [Mentor]                          
+    NC-Verilog   [Cadence]  (derived from Verilog-XL) 
+    VCS          [Synopsys] (derived from Chronologic VCS)     
+  Open source Verilog simulator
+    Icarus Verilog [Stephen Williams]  (not fully 1356-2001 compliant)
+    There are others too....
+--- 
+  Verilog 2001 fixed many shortcomings Verilog 95 had
+  System Verilog is a super-set of Verilog 2001
+  Sverilog added VHDL features and enhanced design verification
+  OVI is now known as Accellera
+  Both Verilog and VHDL have analog extensions VHDL-A and Verilog-AMS
+---
+Verilog versus VHDL
+     Verilog                            VHDL
+  weakly typed                     strongly typed
+  looks like C                     looks like Ada (Pascal)
+  case sensitive                   case insensitive
+  terse                            verbose
+  design by a few                  design by committee
+  used all over                    mandated by government
+  easy to learn                    harder to learn
+  easy to screw up                 holds your hand closely
+

@@ -1,0 +1,314 @@
+===Verilog - Fundamental Concepts===
+Levels of abstraction
+  Verilog is able to model a design at different levels of abstraction
+  High levels express little detail, low levels express much 
+  Boundaries between levels often not well defined
+  Other equally valid and slightly different descriptions exist
+---
+
+Levels of abstraction (cont.)
+  High-level Behavioral: 
+    Could be C, Perl, or Verilog
+    C or Perl considered to be "High-level behavioral"
+    Models behavior without respect to any implementation or structure
+    No timing or sequence of operations is implied
+    No signals or devices are defined
+    Typically non-synthesible
+    For example: adder_out = operand_a + operand_b
+       Not specified: bus width, timing, clock 
+    Often used in testbenches
+---
+
+Levels of abstraction (cont.)
+  RTL: (Register Transfer Level)        
+    Uses Verilog 
+    Timing accurate to clock period level (thus "register" moniker)
+    No gates described explicitly in the description (important)
+    Typical example is a state machine
+    Our focus as designers
+
+  RTL level 2:1 mux 
+  module mux2to1 (input  a,b,  //data inputs
+                  input  sel,  //select line
+                  output z     //output
+                  );
+  always_comb begin
+    case (sel)
+      1'b0    : z = a;
+      1'b1    : z = b;
+      default : z = 1'bx;
+    endcase
+  end
+  endmodule
+---
+
+Levels of abstraction (cont.)
+  Gate:        
+    Models behavior at the gate level
+    Can use built-in Verilog primitive gates
+    Gates, FFs, other cells exist in the design
+    Description is a Verilog netlist (ASCII schematic)
+    Timing accuracy includes gate delay, gate loading, but no layout paracitics
+    Also used to model more complex real gates, AOI, OAI
+    Seldom used for design - abstraction is too low
+  
+  Gate level 2:1 mux
+  module mux2to1 (input  a,b,  //data inputs
+                  input  sel,  //select line
+                  output z     //output
+                  );
+    wire not_sel;
+    not not0 (sel_not, sel);
+  
+    wire and0_out, and1_out;
+    or or0(          z ,  and0_out,   and1_out);
+    and and0( and0_out ,         a,        sel);
+    and and1( and1_out ,         b,   not_sel);
+  endmodule
+---
+
+Levels of abstraction (cont.)
+  Switch:      
+    Primitive transistor (as a switch) behavior
+    Propagation delay, rise and fall time modeling possible
+    Can be used to model CMOS circuits (not gates)
+    We won't use in our class
+---
+
+Advantages of multiple levels of abstraction
+  Multiple designers may be at different levels of implementation
+  Verilog can work with a design using all levels simultaneously
+  IP may be offered at different levels of abstraction than you are at
+---
+
+===Execution Semantics===   
+  Verilog execution is event driven - not time driven like Spice
+  Works with event queues
+  When operands arrive, operations "fire" and future events are posted 
+  Multiple events may occur within multiple "delta cycles"
+  Infinite delta cycles equals 0nS of real time
+---
+
+Execution Semantics(cont.)
+  The idea is to make simulation act identically to real hardware
+  Verilog must be written so that its execution semantics model the 
+  behavior of the gates that are inferred.
+  There are some basic rules of thumb to follow that keep you out of trouble
+  Details are really complicated, we won't cover
+  Warning: lots of bad code out there,... stuff that works most of the time
+---
+
+===Verilog - Language details===
+A module is the basic unit of hierarchy in Verilog
+  It describes the:
+     boundaries               [module, endmodule]
+     inputs and outputs       [ports]
+     contents (how it works)  [behavioral, RTL, gate, switch]
+
+  Can be a single element or collection of lower level modules 
+  Module can describe a hierarchical design (a module of modules)
+  Module is contained within one file
+  Module name matches file name if its the only module(w/o extension)
+  Module fadder resides in file named fadder.sv
+  Multiple modules can reside within one file
+  Correct partitioning a design into modules is critical 
+  [see fadder_blk.pdf,  correlate between boundries, i/o, contents]
+---
+
+Verilog - Language details (cont.)
+  //-------------------------------------------------------------------
+  //one bit full adder 
+  //-------------------------------------------------------------------  
+  module fadder(
+    input a,         //data in a 
+    input b,         //data in b
+    input cin,       //carry in
+    output sum_out,  //sum output
+    output c_out     //carry output
+    );
+    wire c1, c2, c3; //wiring needed
+  
+    assign sum_out = a ^ b;    //half adder (XOR gate)
+    assign c1      = a * cin;  //carry condition 1
+    assign c2      = b * cin;  //carry condition 1
+    assign c3      = a * b;    //carry condition 1
+    assign c_out   = (c1 + c2 + c3);
+   
+  endmodule
+
+  What kind of logic do you expect synthesis to produce?  
+  This is always a good question to be asking yourself
+---
+
+If fadder.v is synthesized (design_compiler), we get..... fadder_all.pdf
+
+---
+
+About "fadder.sv"
+  The declaration "wire" simply indicates what you think it is.
+  A wire that carries a value.  A wire has no memory or sense of state.  
+  More later about this.
+
+  The assign statements may execute in any order.  
+  We can consider that they are executed simultaneously.  
+  This is how the logic would operate.
+---
+
+Modules are declared with their name and ports
+
+module fadder(
+  input a,         //data in a 
+  input b,         //data in b
+  input cin,       //carry in
+  output sum_out,  //sum output
+  output c_out     //carry output
+  );
+---
+
+Some Lexical Conventions
+  
+Comments are signified the same as C
+  One line comments begin with  "//"  
+  Multi-line comments 
+    start with /*
+    end with   */
+
+Identifiers
+  Identifiers are names given to objects so that they may be referenced
+  Start with alphabetic chars or underscore
+  They cannot start with a number or dollar sign ($)
+  All identifiers are case sensitive
+
+  wire a1;  //wire is a keyword, a1 is an identifier
+---
+
+Using ANSI C Style Port Syntax
+  Ports may be declared as 
+    input    //simple input
+    output   //simple output 
+    inout    //tri-state inout
+
+  Input port 
+    Understood as a net within the module by default
+    Can only be read from  [check this against SVerilog]
+  Output port 
+    Understood as a net within the module by default 
+    Can be type reg if assigned in a procedural block (more later)
+  Inout port 
+    Understood as a net within the module by default 
+    Is always a net 
+
+  Input or inout ports cannot be type reg 
+  "reg" variables store values, have memory.... but... 
+     --> "reg" does not mean register!
+  Input ports should only reflect changes of external signals 
+
+  What is "tri-state"?
+---
+
+Testbench Modules
+  To test a chip at the top hierarchical level, we use a Testbench
+  Testbench encompasses the chip at the top level
+  Testbench has --> no ports <-- ,...but probably some file i/o
+---
+
+Module to Module Connections
+  A hierarchical design has a top level module and lower level ones
+  Lower level modules are instantiated within the higher level module
+    and connected together with nets
+  [show tas_blk.pdf]
+---
+
+  Lower level modules can be instantiated within the upper one:
+//-------------------------------------------------------------------
+//one bit full adder - at gate level
+//this example uses the built-in Verilog primitive gates
+//these gates are declared as modules 
+//-------------------------------------------------------------------
+module fadder_struct(
+  input a,         //data in a
+  input b,         //data in b
+  input cin,       //carry in
+  output sum_out,  //sum output
+  output c_out     //carry output
+  );
+  wire c1, c2, c3; //wiring needed
+
+//only instantiations below - totally structural code
+//gate  ref_des   port list (output, input, input, input.....)
+  xor   xor_0   (a, b, sum_out);     //half-adder output
+  and   and_0   (a, cin, c1);        //carry condition 1
+  and   and_1   (b, cin, c2);        //carry condition 2
+  and   and_2   (a, b, c3);          //carry condition 3
+  or     or_0   (c1, c2, c3, c_out); //form carry output
+endmodule
+[draw picture]
+---
+
+Momentary digression on Verilog primitive gates....
+  A number of gates are built-in to the language
+    and, or, nand, nor, xor, xnor, tristate, pullup and pulldown
+  Each gate has one output, the right most argument
+  Gates have as many inputs as required
+  Non-synthesible
+  Good to do experimentation with in absence of a cell library
+---
+Back to instantiation....
+  Typically, more complex modules are connected under the top level
+  For example, in tas, we see:
+
+  module tas (
+         input  clk_50,               // 50Mhz input clock
+         input  clk_2,                // 2Mhz input clock
+         input  reset_n,              // reset async active low
+         input  serial_data,          // serial input data
+         input  data_ena,             // serial data enable
+         output ram_wr_n,             // write strobe to ram
+         output [7:0] ram_data,       // ram data
+         output [10:0] ram_addr       // ram address
+         );
+
+  -----< snip! >------
+
+  //module instantiations
+    shift_reg shift_reg_1(
+      .clk           (clk_50),
+      .reset_n       (reset_n),
+      .data_ena      (data_ena),
+      .serial_data   (serial_data),
+      .parallel_data (shift_reg_out));
+  
+    ctrl_50mhz ctrl_50mhz_0(
+      .clk_50   (clk_50),
+      .reset_n  (reset_n),
+      .data_ena (data_ena),
+      .a5_or_c3 (a5_or_c3),
+      .wr_fifo  (wr_fifo));
+
+[draw partial block diagram showing connections]
+---
+Dissection of shift_reg instantiation 
+
+  shift_reg shift_reg_1(       //module name and instance of the module 
+  .clk           (clk_50),     //the pin clk is connected to the wire clk_50
+  .reset_n       (reset_n),    //the "." denotes the pin
+  .data_ena      (data_ena),   //the value in the parens is the wire
+  .serial_data   (serial_data),
+  .parallel_data (shift_reg_out));  //wires and pins do not have to match
+
+ This method of declaring pins/wires is called "named association".
+ This is the preferred way of doing instantiation when pins/names differ
+ Comment each wire connection if its function is not obvious
+---
+
+Positional association (just _don't_ do it!)
+  Its possible to connect the wires to the pins by position
+    shift_reg shift_reg_1(clk_50,reset_n,data_ena,serial_data,shift_reg_out);
+ 
+  How do you know its connected correctly?
+  What if the module had 50 pins on it?
+  What if you wanted to add wire in the middle of the list?
+
+  Do not use Positional Association!
+    It saves time once, and costs you dearly afterwords
+---

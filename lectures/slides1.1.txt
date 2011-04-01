@@ -1,0 +1,97 @@
+VLSI System Design (ASIC design w/Verilog)
+
+===ASICs===
+What is an ASIC?
+  Application Specific Integrated Circuit
+How are ASICs used?
+  Many popular electronic devices
+  High volume, cost sensitive
+  High reliability, high performance (mA/Mhz)
+---
+How do ASICs differ from FPGAs?
+  Cost
+  Speed
+  Design time
+  Test structures (DFT)
+---
+How do ASICs differ 
+  Std cell, gate array, structured cell array
+    Number of masks
+    Underlying structure
+    Time
+    Cost
+---
+
+===HDLS===
+What are HDLs? (Verilog/VHDL)
+  Programming languages used to describe, simulate, and synthesize hardware
+  They cannot be written or used like typical languages (C and Java)
+  They express the dimensions of timing and concurrency
+  We use HDLs to describe a hardware structure, not an algorithm
+  If you can't draw it, don't try to code it  
+---
+Why were they developed?
+  DOD started the VHSIC program to extend integration and performance of ICs
+  Very large (for the day), high speed ICs were successfully fabricated
+  Schematics were becoming unwieldy quickly
+  The number of transistors and complexity exploded
+  Designers needed a way to describe and simulate complex designs 
+  VHDL was looked at as an alternative to complex manuals for ICs
+Logic Synthesis was a later thought (~1985)
+  Enabled enormous increased in productivity
+  Time to market is critical to survival
+  Only about 10% of Verilog/VHDL is synthesible
+  Remainder is for testbenches, stimulus generation
+---
+
+What are the advantages of using HDLs
+  Can express large, complex designs (> 10^7 gates)
+  Flexible modeling capabilities
+    Description can include the very abstract to the very structural   
+    Can utilize top down or bottom up methodologies
+    Complexity hiding by abstraction is natural 
+--- 
+
+What are the advantages of using HDLs (cont.)
+  Productivity
+    Logic Synthesis
+    Design changes are fast and easily done (text vs. drawing)
+    Leverage of SW design tools
+    Optimization of designs is easier
+    Exploration of alternative designs can be done quickly
+    Easy to trade off time and complexity (speed vs. area) 
+--- 
+
+What are the advantages of using HDLs (cont.)
+  Reusability
+    Packages, libraries, designs can be reusable 
+    Vendor and technology independence
+      CMOS, ECL, GaAs, NEC, TI, TSMC,... same code
+  Documentation 
+    Textual documentation is part of the code, not a separate document
+  Standards
+    There is no such thing as a schematic standard
+    Strict standards promote clear and consistent delivery of design intent 
+--- 
+
+What does it look like?
+//-------------------------------------------------------------------
+//This module creates an adder/accumulator
+//-------------------------------------------------------------------
+module adder(
+       input             clk,          //input clock
+       input             reset_n,      //reset async active low
+       input             first_select, //on first data item use this
+       input             rd_fifo,      //enable for ff
+       input       [7:0] data,         //data in
+       output reg [11:0] acc_out       //data out of accumulator
+       );
+
+  always @ (posedge clk, negedge reset_n)
+    if (!reset_n) acc_out <= 12'h000;
+    else
+      if (rd_fifo == 1'b1)
+        if (first_select == 1'b1)  acc_out <= data;
+        else                       acc_out <= acc_out + data;
+endmodule
+---
