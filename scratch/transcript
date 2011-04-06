@@ -8,9 +8,15 @@
 # //  OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS
 # //  AND IS SUBJECT TO LICENSE TERMS.
 # //
-# vsim -do fadder.tcl -novopt fadder 
-# Loading sv_std.std
+# vsim -novopt fadder 
+# Refreshing /nfs/farm/u2/r/rasmusto/ece474/scratch/work.fadder
 # Loading work.fadder
-# do fadder.tcl 
+# Refreshing /nfs/farm/u2/r/rasmusto/ece474/scratch/work.XOR3X1
+# Loading work.XOR3X1
+# Refreshing /nfs/farm/u2/r/rasmusto/ece474/scratch/work.AO222X1
+# Loading work.AO222X1
+
+do fadder.do
+# Cannot open macro file: fadder.do
+do fadder.tcl
 # .main_pane.objects.interior.cs.body.tree
-quit -f
