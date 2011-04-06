@@ -1,0 +1,4 @@
+read_verilog fadder.sv
+compile
+report_timing
+report_area

@@ -1,6 +1,6 @@
 #@ # 
 #@ # Running dc_shell Version B-2008.09-SP4 for linux -- Feb 27, 2009
-#@ # Date:   Mon Apr  4 10:53:59 2011
+#@ # Date:   Wed Apr  6 10:12:52 2011
 #@ # Run by: rasmusto@flip.engr.oregonstate.edu
 #@ 
 
@@ -3506,9 +3506,12 @@ source /nfs/farm/u2/r/rasmusto/ece474/scratch/.synopsys_dc.setup
 #@ 
 #@ # -- End source /nfs/farm/u2/r/rasmusto/ece474/scratch/.synopsys_dc.setup
 
+source -echo -verbose /nfs/farm/u2/r/rasmusto/ece474/scratch/synth_script
+#@ read_verilog fadder.sv
+#@ compile
+#@ report_timing
+#@ report_area
+#@ # -- End source /nfs/farm/u2/r/rasmusto/ece474/scratch/synth_script
+
 gui_start
-compile
-read_file -format sverilog {/nfs/farm/u2/r/rasmusto/ece474/scratch/fadder.sv}
-compile
-read fadder.sv
-exit
+quit
