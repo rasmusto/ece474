@@ -1,0 +1,31 @@
+m255
+K3
+13
+cModel Technology
+Z0 d/nfs/farm/u2/r/rasmusto/ece474/hw1
+T_opt
+Z1 Vb^]CN[;MIG:P>0PTkM1k63
+Z2 04 6 4 work adder8 fast 0
+Z3 =1-001e680f9a8a-4d9f44cc-2bbc8-60b0
+Z4 o-quiet -auto_acc_if_foreign -work work
+Z5 n@_opt
+Z6 OE;O;6.6a;45
+Z7 d/nfs/farm/u2/r/rasmusto/ece474/hw1
+vadder8
+Mx1 19 __model_tech/sv_std 3 std
+DXx19 __model_tech/sv_std 3 std 0 22 WnQ=;W1X^o9K1PIQTgInR3
+Z8 IolM?1zVOWim^?ObNMWNP>2
+Z9 VImDnTG39>S^XaIYNaT?_h1
+S1
+R7
+Z10 w1302282894
+Z11 8adder8.sv
+Z12 Fadder8.sv
+L0 1
+Z13 OE;L;6.6a;45
+r1
+31
+Z14 o-L mtiAvm -L mtiOvm -L mtiUPF
+Z15 !s100 ;D=2S^l0O0^o_nekLcjA61
+Z16 !s105 adder8_sv_unit
+!s85 0

@@ -1,25 +1,2 @@
-# //  ModelSim SE 6.6a Mar 19 2010 Linux 2.6.18-238.5.1.el5
-# //
-# //  Copyright 1991-2010 Mentor Graphics Corporation
-# //              All Rights Reserved.
-# //
-# //  THIS WORK CONTAINS TRADE SECRET AND 
-# //  PROPRIETARY INFORMATION WHICH IS THE PROPERTY
-# //  OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS
-# //  AND IS SUBJECT TO LICENSE TERMS.
-# //
-# do adder8.do 
-# Missing signal name or pattern
-# ** Error: (vish-4008) Object 'a' not found.
-# Error in macro ./adder8.do line 10
-# ** Error: (vish-4008) Object 'a' not found.
-# 
-#     while executing
-# "vsimcmd::force a x\"50\""
-#     ("uplevel" body line 1)
-#     invoked from within
-# "uplevel vsimcmd::force $args"
-#     (procedure "force" line 13)
-#     invoked from within
-# "force a  x"50""
-# OpenFile adder8.sv 
+# ** Error: (vish-3296) Unknown option '--quiet'.
+# Use the -help option for complete vsim usage.
