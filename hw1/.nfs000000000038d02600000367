@@ -15,6 +15,23 @@
 # Refreshing /nfs/farm/u2/r/rasmusto/ece474/hw1/work.fadder
 # Loading work.fadder
 # do adder8.do 
-# Missing signal name or pattern
-# .main_pane.objects.interior.cs.body.tree
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by:   Hostname:   ProcessID: 0
+#           Attempting to use alternate WLF file "./wlftHGZAML".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftHGZAML
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
 # Break key hit 
