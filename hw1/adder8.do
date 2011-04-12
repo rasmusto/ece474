@@ -34,4 +34,8 @@ force a x"FF"
 force b x"FF"
 run 10ns
 
+force a x"FF"
+force b x"01"
+run 10ns
+
 write list adder8.list
