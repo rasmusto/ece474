@@ -1,0 +1,136 @@
+ECE474 Homework 1
+{somewhat under construction}
+
+We have shown the design of a one-bit full adder in class. 
+In this assignment, you will.....
+
+  -create a 8-bit ripple carry adder from the one-bit adder
+  -create a a simulation do file to test the 8-bit adder        
+  -synthesize the 8-bit adder
+  -rerun the simulation do file on the gate image of the 8-bit adder 
+
+In addition, you will write a bash shell script to document and
+direct the operation of most of the steps.  We will also learn how
+to have the simulator capture both simulation inputs and outputs.
+
+Work to do:
+
+1. Taking the one-bit full adder, create a 8-bit adder called "adder8" 
+from it.  This module will be in a file called adder8.sv.  The module 
+definition for adder8 should look like this:
+
+module adder8(
+  input  [7:0]  a,       //data in a
+  input  [7:0]  b,       //data in b
+  output [7:0] sum_out,  //sum output
+  output c_out           //carry output
+  );
+
+Note that the module adder8 has no carry in, only a carry out.  You
+should refer to how to do component instantiations (class notes) to 
+create the adder. This will be a structural design at the top level, 
+existing only of multiple (8) instantiations of "fadder" and the wires 
+it takes to do that.
+
+Prior to coding adder8, hand-draw a block diagram of the internals 
+of adder8.  This drawing will show the external ports to adder8, each
+internal fadder block, and how these are all connected.  Drawing this
+first will help clear your thinking about how the block is connected.
+
+2. To test adder8, create a simulation dofile "adder8.do" to test your
+adder8. Include at least 20 or so test cases each separated with a short
+delay so you can see the results clearly.  
+
+My .do file has multiple instances of the following:
+  force a  x"50"
+  force b  x"50"
+  run 10 ns
+
+This forces a and b inputs to hexadecimal values 50 and advances the
+simulator time 10ns.  Lets all use 10ns as our run time to keep things
+consistent.
+
+At the beginning of adder8.do, include the following:
+
+add list -nodelta
+configure list -strobestart {9 ns}  -strobeperiod {10 ns}
+configure list -usestrobe 1
+
+add list -notrigger -hex -width 4  -label a          a
+add list -notrigger -hex -width 4  -label b          b
+add list -notrigger -hex -width 10 -label sum_out    sum_out
+add list -notrigger -hex -width 8  -label c_out      c_out
+
+This will create a textual listing of the i/o pins a, b, sum_out, and c_out
+along with the time they were sampled.  I am forcing samples of these
+signals beginning at 9ns and repeating every 10ns.  Since our do file
+forces a new value every 10ns, we will sample the results 9ns later, just
+before the next change of input value.
+
+At the end of your adder8.do file, include the following:
+
+write list adder8.list
+
+This last step will write the contents of the list window directly to
+a file for later comparison.
+
+
+3. To synthesize adder8, create a synthesis TCL script like the one we
+have used in class. Call it "syn_adder8". You will need to read in fadder, 
+then adder8, compile, then write out the gate-level verilog netlist to 
+adder8.gate.v.  Note that we use "*.v" and not "*.sv" as the netlist will 
+be in Verilog and not in System Verilog format.
+
+4. Finally, create a bash shell script to do all the steps for you following
+the basic script shown in the class notes.  Your script should read somewhat
+like this: (this is pseudocode guys!)
+
+if (/work directory does not exist) then
+  {create it}
+
+if (fadder and adder8 exist) then
+  {compile them}
+
+if (adder.do exists) then
+  {invoke the simulator, run the simulation, and quit}
+   Note1: upon invocation of vsim, use the "-t 1ps" switch to keep 
+          timebases consistent.  It defaults to nS.
+   Note2: You will probably get at message: "# Missing signal name or pattern"
+          This can be safely ignored.
+ 
+if (syn_adder exists) then
+  if(the gate library has not been compiled yet) then
+  {invoke synthesis and save results, by executing the script}
+  Hint: to check for prior compilation, look in work/_info, grep cell name 
+
+synthesize the cell library into /work 
+
+if (adder8.gate.v exists) then
+  {compile it}
+
+invoke the simulator, run the simulation, and quit
+
+compare the results between the two runs of simulation
+hint: consider using: "diff" and file size checking  
+
+print a user message telling if the comparison failed
+
+5. To turn in:
+  hand drawing of adder8 block diagram  %20
+  source code:  fadder.sv, adder8.sv    %20
+  TCL scripts:  adder8.do, syn_adder8   %20
+  bash script:  doit.sh                 %40
+
+Due, Wednesday the 13th.
+
+Some ideas:
+  -Running the simulator in gui mode gets to be a hassle.  You can
+run it in quiet, gui-less, "console mode" (hence the -c) like this:
+
+vsim adder8 -do adder8.do -quiet -c -t 1ps
+
+  -Ditto for the synthesis tool.  You can run synthesis quietly by 
+invoking like this:
+ 
+dc_shell-xg-t -f <synthesis TCL file> 
+ 

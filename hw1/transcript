@@ -1,2 +1,14 @@
-# ** Error: (vish-3296) Unknown option '--quiet'.
-# Use the -help option for complete vsim usage.
+# vsim -do adder8.do -c -quiet -t 1ps adder8 
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: adder8.sv(16): (vopt-2241) Connection width does not match width of port 'cin'. The port definition is at: fadder.sv(8).
+# //  ModelSim SE 6.6a Mar 19 2010 Linux 2.6.18-238.5.1.el5
+# //
+# //  Copyright 1991-2010 Mentor Graphics Corporation
+# //              All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND 
+# //  PROPRIETARY INFORMATION WHICH IS THE PROPERTY
+# //  OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS
+# //  AND IS SUBJECT TO LICENSE TERMS.
+# //
+# do adder8.do 
