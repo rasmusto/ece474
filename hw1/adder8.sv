@@ -10,7 +10,7 @@ fadder fadder_0 (
     .a          (a[0]),
     .b          (b[0]),
     .sum_out    (sum_out[0]),
-    .cin        (0'b0),
+    .cin        (1'b0),
     .c_out      (c_out_temp[0]));
 fadder fadder_1 (
     .a          (a[1]),
