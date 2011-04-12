@@ -1,4 +1,1 @@
-*.wlf
-*.list
-work
-transcript
+../.gitignore

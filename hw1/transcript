@@ -8,12 +8,9 @@
 # //  OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS
 # //  AND IS SUBJECT TO LICENSE TERMS.
 # //
-# vsim -do adder8.do -t 1ps -novopt adder8 
-# Loading sv_std.std
+# vsim -do adder8.do -quiet -t 1ps -novopt adder8 
 # Refreshing /nfs/farm/u2/r/rasmusto/ece474/hw1/work.adder8
-# Loading work.adder8
 # Refreshing /nfs/farm/u2/r/rasmusto/ece474/hw1/work.fadder
-# Loading work.fadder
 # do adder8.do 
 # Missing signal name or pattern
 # .main_pane.objects.interior.cs.body.tree

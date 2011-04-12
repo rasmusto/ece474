@@ -1,4 +1,4 @@
-module adder8 
+module adder8
 (
     input  [7:0]  a,       //data in a
     input  [7:0]  b,       //data in b

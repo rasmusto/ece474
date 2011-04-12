@@ -1,0 +1,5 @@
+read_sverilog  adder8.sv
+compile_ultra
+report_timing
+report_area
+write -format verilog -hierarchy -output adder8.gate.v
