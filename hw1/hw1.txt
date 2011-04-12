@@ -88,7 +88,7 @@ like this: (this is pseudocode guys!)
 if (/work directory does not exist) then
   {create it}
 
-if (fadder and adder8 exist) then
+if (fadder.sv and adder8.sv exist) then
   {compile them}
 
 if (adder.do exists) then
@@ -98,12 +98,12 @@ if (adder.do exists) then
    Note2: You will probably get at message: "# Missing signal name or pattern"
           This can be safely ignored.
 
-if (syn_adder exists) then
-  if(the gate library has not been compiled yet) then
-  {invoke synthesis and save results, by executing the script}
-  Hint: to check for prior compilation, look in work/_info, grep cell name
+if (the script syn_adder exists) then
+  {synthesize adder8 by executing the script}
 
-synthesize the cell library into /work
+if (the gate library has not been compiled yet) then
+  {synthesize the cell library into /work }
+Hint: to check for prior compilation, look in work/_info, grep cell name
 
 if (adder8.gate.v exists) then
   {compile it}

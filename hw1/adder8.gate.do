@@ -38,4 +38,4 @@ force a x"FF"
 force b x"01"
 run 10ns
 
-write list adder8.list
+write list adder8.gate.list
