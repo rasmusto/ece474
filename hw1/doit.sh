@@ -43,8 +43,8 @@ fi
 if [ -e "syn_adder8" ];
 then
     echo "Synthesizing adder8..."
-    design_vision-xg -f syn_adder8
-    #dc_shell-xg-t -f syn_adder8
+    #design_vision-xg -f syn_adder8
+    dc_shell-xg-t -f syn_adder8
 fi
 
 
