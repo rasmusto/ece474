@@ -1,5 +1,5 @@
 read_verilog fadder.sv
-read_verilog  adder8.sv
+read_verilog adder8.sv
 compile
 report_timing
 report_area
