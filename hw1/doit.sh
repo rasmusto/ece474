@@ -1,4 +1,8 @@
-#!/bin/bash
+#!/bin/bash -e
+
+#exit if there are errors
+#set -e
+
 if [ ! -d "work" ];
 then
     echo "Creating work directory..."
@@ -25,13 +29,6 @@ then
     mv adder8.list adder8_original.list
 fi
 
-if [ -e "syn_adder8" ];
-then
-    echo "Synthesizing adder8..."
-    #design_vision-xg -f syn_adder8
-    dc_shell-xg-t -f syn_adder8
-fi
-
 if grep Digital_Standard_Cell_Library work/_info
 then
     echo "Library is already compiled!"
@@ -42,6 +39,14 @@ else
     echo "***** Compile synthesis library into work *****"
     vlog $synop_lib/*  -work work
 fi
+
+if [ -e "syn_adder8" ];
+then
+    echo "Synthesizing adder8..."
+    design_vision-xg -f syn_adder8
+    #dc_shell-xg-t -f syn_adder8
+fi
+
 
 if [ -e "adder8.gate.v" ];
 then
