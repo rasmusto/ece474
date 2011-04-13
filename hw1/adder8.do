@@ -39,3 +39,4 @@ force b x"01"
 run 10ns
 
 write list adder8.list
+quit -f
