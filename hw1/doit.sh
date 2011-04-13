@@ -31,7 +31,7 @@ then
     dc_shell-xg-t -f syn_adder8
 fi
 
-if grep adder8 work/_info
+if grep Digital_Standard_Cell_Library work/_info
 then
     echo "Library is already compiled!"
 else
