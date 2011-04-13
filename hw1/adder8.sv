@@ -5,8 +5,8 @@ module adder8
     output [7:0] sum_out,   //sum output
     output c_out            //carry output
 );
-wire [7:0] c_out_temp;
 
+wire [6:0] c_out_temp;
 fadder fadder_0 (   .a          (a[0]),
                     .b          (b[0]),
                     .sum_out    (sum_out[0]),
@@ -40,7 +40,7 @@ fadder fadder_4 (   .a          (a[4]),
 fadder fadder_5 (   .a          (a[5]),
                     .b          (b[5]),
                     .sum_out    (sum_out[5]),
-                    .cin        (c_out_temp[6]),
+                    .cin        (c_out_temp[4]),
                     .c_out      (c_out_temp[5]));
 
 fadder fadder_6 (   .a          (a[6]),
@@ -53,6 +53,16 @@ fadder fadder_7 (   .a          (a[7]),
                     .b          (b[7]),
                     .sum_out    (sum_out[7]),
                     .cin        (c_out_temp[6]),
-                    .c_out      (c_out_temp[7]));
-assign c_out = c_out_temp[7];
+                    .c_out      (c_out));
+/*
+wire [7:0] c_out_temp;
+fadder fadder_0(a[0], b[0], 1'b0,          sum_out[0], c_out_temp[0]);
+fadder fadder_1(a[1], b[1], c_out_temp[0], sum_out[1], c_out_temp[1]);
+fadder fadder_2(a[2], b[2], c_out_temp[1], sum_out[2], c_out_temp[2]);
+fadder fadder_3(a[3], b[3], c_out_temp[2], sum_out[3], c_out_temp[3]);
+fadder fadder_4(a[4], b[4], c_out_temp[3], sum_out[4], c_out_temp[4]);
+fadder fadder_5(a[5], b[5], c_out_temp[4], sum_out[5], c_out_temp[5]);
+fadder fadder_6(a[6], b[6], c_out_temp[5], sum_out[6], c_out_temp[6]);
+fadder fadder_7(a[7], b[7], c_out_temp[6], sum_out[7], c_out);
+*/
 endmodule

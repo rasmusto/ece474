@@ -1,6 +1,6 @@
 read_verilog fadder.sv
 read_verilog adder8.sv
-compile_ultra
+compile
 report_timing
 report_area
 write -format verilog -hierarchy -output adder8.gate.v

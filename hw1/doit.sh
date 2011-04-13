@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 
 #exit if there are errors
 #set -e
@@ -60,8 +60,10 @@ then
         mv adder8.list adder8_optimized.list
         if [ -e "adder8_original.list" -a -e "adder8_optimized.list" ]
         then
-            echo "Showing differences between the two list files..."
+            echo "Showing differences between the two .list files..."
+            echo "VVVVVVVV THERE SHOULD BE NOTHING HERE VVVVVVVV"
             diff adder8_original.list adder8_optimized.list
+            echo "^^^^^^^^         WHAT HE SAID         ^^^^^^^^"
         fi
     fi
 fi
