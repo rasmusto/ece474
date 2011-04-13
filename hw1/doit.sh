@@ -20,8 +20,8 @@ fi
 if [ -e "adder8.do" ];
 then
     echo "Simulating adder8..."
-    vsim -novopt -t 1ps -do adder8.do adder8
-    #vsim adder8 -do adder8.do -quiet -c -t 1ps
+    #vsim -novopt -t 1ps -do adder8.do adder8
+    vsim adder8 -do adder8.do -quiet -c -t 1ps
     mv adder8.list adder8_original.list
 fi
 
@@ -51,8 +51,8 @@ then
     then
         echo "Simulating adder8.gate..."
         #vsim -novopt -t 1ps -do adder8.gate.do adder8.gate
-        mv adder8.list adder8_optimized.list
         vsim adder8 -do adder8.do -quiet -c -t 1ps
+        mv adder8.list adder8_optimized.list
         if [ -e "adder8_original.list" -a -e "adder8_optimized.list" ]
         then
             echo "Showing differences between the two list files..."
