@@ -94,5 +94,5 @@ force a x"A5"
 force b x"83"
 run 10ns
 
-write list adder8.list
+write list alu.list
 quit -f
