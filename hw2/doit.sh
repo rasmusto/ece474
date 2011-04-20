@@ -9,26 +9,6 @@ then
     vlib work
 fi
 
-if [ -e "fadder.sv" ];
-then
-    echo "Compiling fadder.sv..."
-    vlog fadder.sv
-fi
-
-if [ -e "adder8.sv" ];
-then
-    echo "Compiling adder8.sv..."
-    vlog adder8.sv
-fi
-
-if [ -e "adder8.do" ];
-then
-    echo "Simulating adder8..."
-    vsim -novopt -t 1ps -do adder8.do adder8
-    #vsim adder8 -do adder8.do -novopt -quiet -c -t 1ps
-    mv adder8.list adder8_original.list
-fi
-
 if [ -e "rtl_src/alu.sv" ];
 then
     echo "Compiling rtl_src/alu.sv..."
@@ -38,8 +18,8 @@ fi
 if [ -e "rtl_src/alu.do" ];
 then
     echo "Simulating rtl_src/alu..."
-    #vsim -novopt -t 1ps -do rtl_src/alu.do alu
-    vsim alu -do rtl_src/alu.do -novopt -quiet -c -t 1ps
+    vsim -novopt -t 1ps -do rtl_src/alu.do alu
+    #vsim alu -do rtl_src/alu.do -novopt -quiet -c -t 1ps
     mv alu.list alu8_original.list
 fi
 

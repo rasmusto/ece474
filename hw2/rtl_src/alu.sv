@@ -19,20 +19,24 @@ parameter c_shl         =   4'h9;  /* in_a is shifted one place left, zero shift
 parameter c_onescomp    =   4'hA;  /* in_a gets "ones complemented" */
 parameter c_twoscomp    =   4'hB;  /* in_a gets "twos complemented" */
 
-always_comb
-    case (opcode)
-        c_add         :     alu_out = in_a + in_b;
-        c_sub         :     alu_out = in_a - in_b;
-        c_inc         :     alu_out = in_a + 8'h01;
-        c_dec         :     alu_out = in_a - 8'h01;
-        c_or          :     alu_out = in_a | in_b;
-        c_and         :     alu_out = in_a & in_b;
-        c_xor         :     alu_out = in_a ^ in_b;
-        c_shr         :     alu_out = 8'bxxxxxxxx;
-        c_shl         :     alu_out = 8'bxxxxxxxx;
-        c_onescomp    :     alu_out = ~in_a;
-        c_twoscomp    :     alu_out = ~in_a + 8'h01;
-        default       :     alu_out = 8'bxxxxxxxx;
-    endcase
 
+always_comb
+begin
+    assign alu_carry   =   1'b0;
+    assign alu_zero    =   1'b0;
+    case (opcode)
+        c_add         :     {alu_carry, alu_out} = in_a + in_b;
+        c_sub         :     {alu_carry, alu_out} = in_a - in_b;
+        c_inc         :     {alu_carry, alu_out} = in_a + 8'h01;
+        c_dec         :     {alu_carry, alu_out} = in_a - 8'h01;
+        c_or          :                 alu_out  = in_a | in_b;
+        c_and         :                 alu_out  = in_a & in_b;
+        c_xor         :                 alu_out  = in_a ^ in_b;
+        c_shr         :     {alu_carry, alu_out} = in_a >> 1;
+        c_shl         :     {alu_carry, alu_out} = in_a << 1;
+        c_onescomp    :     {alu_carry, alu_out} = ~in_a;
+        c_twoscomp    :     {alu_carry, alu_out} = ~in_a + 8'h01;
+        default       :     {alu_carry, alu_out} = 8'bxxxxxxxx;
+    endcase
+end
 endmodule
