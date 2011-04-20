@@ -20,7 +20,7 @@ then
     echo "Simulating rtl_src/alu..."
     vsim -novopt -t 1ps -do rtl_src/alu.do alu
     #vsim alu -do rtl_src/alu.do -novopt -quiet -c -t 1ps
-    mv alu.list alu8_original.list
+    mv alu.list alu_original.list
 fi
 
 if grep Digital_Standard_Cell_Library work/_info
@@ -34,11 +34,11 @@ else
     vlog $synop_lib/*  -work work
 fi
 
-if [ -e "syn_alu" ];
+if [ -e "rtl_src/syn_alu" ];
 then
     echo "Synthesizing alu..."
-    #design_vision-xg -f syn_alu
-    dc_shell-xg-t -f syn_alu
+    #design_vision-xg -f rtl_src/syn_alu
+    dc_shell-xg-t -f rtl_src/syn_alu
 fi
 
 

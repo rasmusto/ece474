@@ -42,4 +42,19 @@ force in_b      x"01"
 force opcode    x"1"
 run 10ns
 
+force in_a      x"F1"
+force in_b      x"01"
+force opcode    x"2"
+run 10ns
+
+force in_a      x"F1"
+force in_b      x"xx"
+force opcode    x"3"
+run 10ns
+
+force in_a      x"F1"
+force in_b      x"xx"
+force opcode    x"4"
+run 10ns
+
 write list alu.list
