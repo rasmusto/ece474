@@ -9,4 +9,20 @@ then
 else
     echo "$1: no such directory"
 fi
-tar cvf $1.tar --exclude=*.log --exclude=*.txt $1
+tar cvf $1.tar  --exclude=*.log         \
+                --exclude=*.txt         \
+                --exclude=*.svf         \
+                --exclude=*.wlf         \
+                --exclude=transcript    \
+                --exclude=work          \
+                $1
+
+command.log
+default.svf
+doit.sh
+hw2.txt
+rtl_src
+syn_alu
+transcript
+vsim.wlf
+work
