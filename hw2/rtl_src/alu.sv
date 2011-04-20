@@ -7,13 +7,15 @@ module alu(
     output  reg        alu_carry   //indicates a carry out from ALU
 );
 
-wire [7:0] add_out;
-wire c_out;
-
-adder8 add  (   .a          (in_a),
-                .b          (in_b),
-                .sum_out    (add_out)
-                .c_out      (alu_carry));
+wire [7:0]  sum_out, 
+            or_out, 
+            and_out, 
+            xor_out,
+            shr_out,
+            shl_out,
+            onescomp_out,
+            twoscomp_out
+            temp_b;
 
 parameter c_add         =   4'h01;  //in_a + in
 parameter c_sub         =   4'h02;  //in_a - in
@@ -26,5 +28,22 @@ parameter c_shr         =   4'h08;  //in_a is shifted one place right, zero shif
 parameter c_shl         =   4'h09;  //in_a is shifted one place left, zero shifted in
 parameter c_onescomp    =   4'h0A;  //in_a gets "ones complemented"
 parameter c_twoscomp    =   4'h0B;  //in_a gets "twos complemented"
+
+always @*
+begin
+
+temp_b = in_b;
+if(opcode == c_sub) temp_b = ~b; end
+if(opcode == c_inc) temp_b = 4'b0001; end
+if(opcode == c_dec) temp_b = 4'b1111; end
+
+adder8 add  (   .a          (in_a),
+                .b          (temp_b),
+                .sum_out    (sum_out)
+                .c_out      (alu_carry));
+
+assign or_out   = in_a | in_b;
+assign and_out  = in_a & in_b;
+assign xor_out  = in_a ^ in_b;
 
 endmodule
