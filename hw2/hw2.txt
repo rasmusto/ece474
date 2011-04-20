@@ -1,0 +1,92 @@
+ECE 474 Homework 2
+Verilog combinatorial circuits
+
+--Background--
+We are learning about many of the synthesizable Verilog constructs for creating 
+combinatorial circuits. This exercise will give us an opportunity to start using
+these constructs with synthesis.
+
+We will create a multifunction ALU with 11 opcodes. It will have two 8-bit operand
+inputs, an 8-bit output, plus outputs for a zero indication and carry. The opcodes 
+will be supplied by one 4-bit bus.
+
+You may use any of the combinatorial Verilog constructs we have looked at so far.
+
+Work to do:
+1) Create a hw2 working directory. Remember to copy .synopsys_dc.setup into it. 
+   Create a work directory.
+   Make a rtl_src directory for your alu.sv source file.
+
+2) Code the ALU as alu.sv.  The module _must_ look as follows:
+
+  module alu(
+      input        [7:0] in_a     ,  //input a
+      input        [7:0] in_b     ,  //input b
+      input        [3:0] opcode   ,  //opcode input
+      output  reg  [7:0] alu_out  ,  //alu output
+      output  reg        alu_zero ,  //logic '1' when alu_output [7:0] is all zeros
+      output  reg        alu_carry   //indicates a carry out from ALU 
+      );
+  endmodule
+
+  Declare all the opcodes in the module as follows.  
+
+  parameter c_add = 4'h01;
+  parameter c_sub = 4'h02;
+  parameter c_inc = 4'h03;
+  parameter declaration for an opcode...
+  parameter declaration for an opcode...
+  ...
+  
+  Note the use of the prefix "c_" to mark the identifier as a constant.
+  The opcodes for the ALU are as follows:  
+
+   c_add      =  0001   in_a + in_b
+   c_sub      =  0010   in_a - in_b 
+   c_inc      =  0011   in_a + 1
+   c_dec      =  0100   in_a - 1
+   c_or       =  0101   in_a OR in_b
+   c_and      =  0110   in_a AND in_b
+   c_xor      =  0111   in_a XOR in_b
+   c_shr      =  1000   in_a is shifted one place right, zero shifted in
+   c_shl      =  1001   in_a is shifted one place left, zero shifted in
+   c_onescomp =  1010   in_a gets "ones complemented"
+   c_twoscomp =  1011   in_a gets "twos complemented"
+
+3) Compile alu.sv and simulate it to determine it works correctly by creating a 
+   input stimulus do file by hand.
+
+   The stimulus file should apply the the appropriate operands and opcodes to 
+   test your alu. Run a RTL simulation that shows correct operation. Print 
+   the waveform from vsim using hex format for signals.  
+
+4) Now synthesize the RTL and produce the gate level design. 
+      Determine the following and put your answers on a separate sheet:
+      1. Find the total area used by the alu. (report_area command)
+      2. How many different types of cells (gates) were utilized : (report_hierarchy command)
+      3. Number of cells (gates).  This will require using the report_area command as well 
+         as looking at the cell library databook. It is located at:   
+	 /nfs/guille/a1/cadlibs/synop_lib/SAED_EDK90nm/Digital_Standard_Cell_Library/doc/databook
+	 Its is called SAED Digital Standard Cell Library_Rev1_4_20.  Its is a pdf file but has 
+         no .pdf on it.  Search for the cell "NAND2X1" and record the area. (pg 34)  Divide the 
+         total area reported by design_vision by this number to get the gate equivalent count.
+      4. The synthesis tool introduced a hierarchical block to your design because 
+         it recognized something in your design. What is the block and what does it do?
+	 What style of implementation was chosen for this element? 
+	 Hint: see report_hierarchy output
+      5. What was the maximum delay path through the alu and what were the
+	 beginning and endpoints for the max delay path?: (report_timing command)
+
+What to turn in:
+  1. Your Verilog code
+  2. Turn in the schematic of your synthesized alu 
+  3. The waveform of your code working correctly at both RTL and gate levels.
+  4. The sheet with your written answers from part "d".
+  
+  This is a physical hand in, not an electronic submit
+
+Grading
+  -Verilog coding and correct operation   -70%
+  -waveform printout                      -10%
+  -Written answers (part 5)               -20%
+

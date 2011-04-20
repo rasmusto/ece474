@@ -9,17 +9,17 @@ then
     vlib work
 fi
 
-if [ -e "alu.sv" ];
+if [ -e "rtl_src/alu.sv" ];
 then
-    echo "Compiling alu.sv..."
-    vlog alu.sv
+    echo "Compiling rtl_src/alu.sv..."
+    vlog rtl_src/alu.sv
 fi
 
-if [ -e "alu.do" ];
+if [ -e "rtl_src/alu.do" ];
 then
-    echo "Simulating alu..."
-    #vsim -novopt -t 1ps -do alu.do alu
-    vsim alu -do alu.do -quiet -c -t 1ps
+    echo "Simulating rtl_src/alu..."
+    #vsim -novopt -t 1ps -do rtl_src/alu.do alu
+    vsim alu -do rtl_src/alu.do -quiet -c -t 1ps
     mv alu.list alu8_original.list
 fi
 
