@@ -24,8 +24,8 @@ fi
 if [ -e "adder8.do" ];
 then
     echo "Simulating adder8..."
-    #vsim -novopt -t 1ps -do adder8.do adder8
-    vsim adder8 -do adder8.do -novopt -quiet -c -t 1ps
+    vsim -novopt -t 1ps -do adder8.do adder8
+    #vsim adder8 -do adder8.do -novopt -quiet -c -t 1ps
     mv adder8.list adder8_original.list
 fi
 
