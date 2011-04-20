@@ -18,12 +18,12 @@ fi
 if [ -e "rtl_src/alu.do" ];
 then
     echo "Simulating rtl_src/alu..."
-    vsim -novopt -t 1ps -do rtl_src/alu.do alu
-    #vsim alu -do rtl_src/alu.do -novopt -quiet -c -t 1ps
+    #vsim -novopt -t 1ps -do rtl_src/alu.do alu
+    vsim alu -do rtl_src/alu.do -novopt -quiet -c -t 1ps
     mv alu.list alu_original.list
 fi
 
-if grep Digital_Standard_Cell_Library work/_info
+if grep Digital_Standard_Cell_Library work/_info >> /dev/null
 then
     echo "Library is already compiled!"
 else
@@ -37,20 +37,20 @@ fi
 if [ -e "rtl_src/syn_alu" ];
 then
     echo "Synthesizing alu..."
-    #design_vision-xg -f rtl_src/syn_alu
-    dc_shell-xg-t -f rtl_src/syn_alu
+    design_vision-xg -f rtl_src/syn_alu
+    #dc_shell-xg-t -f rtl_src/syn_alu
 fi
 
 
-if [ -e "alu.gate.v" ];
+if [ -e "rtl_src/alu.gate.v" ];
 then
-    echo "Compiling alu.gate..."
-    vlog alu.gate.v
-    if [ -e "alu.do" ];
+    echo "Compiling rtl_src/alu.gate..."
+    vlog rtl_src/alu.gate.v
+    if [ -e "rtl_src/alu.do" ];
     then
         echo "Simulating alu.gate..."
-        #vsim -novopt -t 1ps -do alu.gate.do alu.gate
-        vsim alu -do alu.do -novopt -quiet -c -t 1ps
+        #vsim alu -novopt -t 1ps -do rtl_src/alu.do 
+        vsim alu -do rtl_src/alu.do -novopt -quiet -c -t 1ps
         mv alu.list alu_optimized.list
         if [ -e "alu_original.list" -a -e "alu_optimized.list" ]
         then

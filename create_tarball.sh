@@ -8,7 +8,7 @@ if [ -d $1 ]
 then
     mv $1 rasmusto_$1
     echo "$1 exists and is a directory!"
-    tar cvf rasmusto_$1.tar  --exclude=*.log         \
+    tar cvf rasmusto_$1.tar --exclude=*.log         \
                     --exclude=*.txt         \
                     --exclude=*.svf         \
                     --exclude=*.wlf         \

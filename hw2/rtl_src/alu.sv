@@ -23,7 +23,6 @@ parameter c_twoscomp    =   4'hB;  /* in_a gets "twos complemented" */
 always_comb
 begin
     alu_carry = 0;
-    assign alu_zero    =   1'b0;
     case (opcode)
         c_add         :     {alu_carry, alu_out} = in_a + in_b;
         c_sub         :     {alu_carry, alu_out} = in_a - in_b;
@@ -32,11 +31,12 @@ begin
         c_or          :                 alu_out  = in_a | in_b;
         c_and         :                 alu_out  = in_a & in_b;
         c_xor         :                 alu_out  = in_a ^ in_b;
-        c_shr         :     {alu_carry, alu_out} = in_a >> 1;
+        c_shr         :     {alu_out, alu_carry} = in_a >> 1;
         c_shl         :     {alu_carry, alu_out} = in_a << 1;
         c_onescomp    :     {alu_carry, alu_out} = ~in_a;
         c_twoscomp    :     {alu_carry, alu_out} = ~in_a + 8'h01;
-        default       :     {alu_carry, alu_out} = 8'bxxxxxxxxx;
+        default       :     {alu_carry, alu_out} = 9'bxxxxxxxxx;
     endcase
+    alu_zero = ~|alu_out;
 end
 endmodule
