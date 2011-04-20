@@ -1,4 +1,4 @@
-add list -nodelta
+configure list -delta none
 configure list -strobestart {9 ns}  -strobeperiod {10 ns}
 configure list -usestrobe 1
 

@@ -25,7 +25,7 @@ if [ -e "adder8.do" ];
 then
     echo "Simulating adder8..."
     #vsim -novopt -t 1ps -do adder8.do adder8
-    vsim adder8 -do adder8.do -quiet -c -t 1ps
+    vsim adder8 -do adder8.do -novopt -quiet -c -t 1ps
     mv adder8.list adder8_original.list
 fi
 
@@ -39,7 +39,7 @@ if [ -e "rtl_src/alu.do" ];
 then
     echo "Simulating rtl_src/alu..."
     #vsim -novopt -t 1ps -do rtl_src/alu.do alu
-    vsim alu -do rtl_src/alu.do -quiet -c -t 1ps
+    vsim alu -do rtl_src/alu.do -novopt -quiet -c -t 1ps
     mv alu.list alu8_original.list
 fi
 
@@ -70,7 +70,7 @@ then
     then
         echo "Simulating alu.gate..."
         #vsim -novopt -t 1ps -do alu.gate.do alu.gate
-        vsim alu -do alu.do -quiet -c -t 1ps
+        vsim alu -do alu.do -novopt -quiet -c -t 1ps
         mv alu.list alu_optimized.list
         if [ -e "alu_original.list" -a -e "alu_optimized.list" ]
         then
