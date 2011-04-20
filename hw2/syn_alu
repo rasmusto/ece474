@@ -1,3 +1,5 @@
+read_verilog fadder.sv
+read_verilog adder8.sv
 read_verilog alu.sv
 compile
 report_timing
