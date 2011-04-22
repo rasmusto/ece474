@@ -1,0 +1,25 @@
+1. The total area used by the alu is 1664.132701.
+
+2. There were 13 different types of gates used by my design:
+AND2X1                    saed90nm_typ
+AO221X1                   saed90nm_typ
+INVX0                     saed90nm_typ
+MUX21X1                   saed90nm_typ
+MUX41X1                   saed90nm_typ
+NAND2X0                   saed90nm_typ
+NAND3X0                   saed90nm_typ
+NOR2X0                    saed90nm_typ
+OAI21X1                   saed90nm_typ
+OR4X1                     saed90nm_typ
+XNOR2X1                   saed90nm_typ
+XOR2X1                    saed90nm_typ
+alu_DW01_addsub_0
+    FADDX1                saed90nm_typ
+    XOR2X1                saed90nm_typ
+
+3. The number of cells used in the design is 120.
+The number of gates is 1664.132701 / 5.5296 = 300.9 ~= 301.
+
+4. The hierarchical block introduced to my design was the module alu_DW01_addsub_0.  This is most likely the ripple adder introduced when I compiled my design with the statement "in_a + in_b".  It is implemented as a chain of full adders.
+
+5. The maximum delay path is 2.53 ps. The beginning point was input external delay and the endpoint was data arrival time.

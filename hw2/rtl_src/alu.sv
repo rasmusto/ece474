@@ -33,8 +33,8 @@ begin
         c_xor         :                 alu_out  = in_a ^ in_b;
         c_shr         :     {alu_out, alu_carry} = in_a >> 1;
         c_shl         :     {alu_carry, alu_out} = in_a << 1;
-        c_onescomp    :     {alu_carry, alu_out} = ~in_a;
-        c_twoscomp    :     {alu_carry, alu_out} = ~in_a + 8'h01;
+        c_onescomp    :     {alu_carry, alu_out} = (in_a ^ 8'hFF);
+        c_twoscomp    :     {alu_carry, alu_out} = (in_a ^ 8'hFF) + 8'h01;
         default       :     {alu_carry, alu_out} = 9'bxxxxxxxxx;
     endcase
     alu_zero = ~|alu_out;

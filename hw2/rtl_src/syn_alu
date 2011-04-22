@@ -3,5 +3,5 @@ compile
 check_design
 report_timing
 report_area
+report_hierarchy
 write -format verilog -hierarchy -output rtl_src/alu.gate.v
-quit!

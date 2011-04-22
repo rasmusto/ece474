@@ -18,8 +18,8 @@ fi
 if [ -e "rtl_src/alu.do" ];
 then
     echo "Simulating rtl_src/alu..."
-    #vsim -novopt -t 1ps -do rtl_src/alu.do alu
-    vsim alu -do rtl_src/alu.do -novopt -quiet -c -t 1ps
+    vsim -novopt -t 1ps -do rtl_src/alu.do alu
+    #vsim alu -do rtl_src/alu.do -novopt -quiet -c -t 1ps
     mv alu.list alu_original.list
 fi
 
@@ -49,8 +49,8 @@ then
     if [ -e "rtl_src/alu.do" ];
     then
         echo "Simulating alu.gate..."
-        #vsim alu -novopt -t 1ps -do rtl_src/alu.do 
-        vsim alu -do rtl_src/alu.do -novopt -quiet -c -t 1ps
+        vsim alu -novopt -t 1ps -do rtl_src/alu.do 
+        #vsim alu -do rtl_src/alu.do -novopt -quiet -c -t 1ps
         mv alu.list alu_optimized.list
         if [ -e "alu_original.list" -a -e "alu_optimized.list" ]
         then
@@ -61,7 +61,7 @@ then
         fi
     fi
 fi
-echo "Cleaning up files..."
-rm -f alu_original.list
-rm -f alu_optimized.list
+#echo "Cleaning up files..."
+#rm -f alu_original.list
+#rm -f alu_optimized.list
 echo "Done!"
