@@ -64,4 +64,5 @@ fi
 #echo "Cleaning up files..."
 #rm -f alu_original.list
 #rm -f alu_optimized.list
+a2ps rtl_src/alu.sv writeup.txt alu_original.list alu_optimized.list --pro=color --pretty-print -2 --file-align=virtual -Ppdf
 echo "Done!"

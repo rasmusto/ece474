@@ -1,0 +1,77 @@
+ECE 474 Homework 3
+Verilog synchronous circuits and testbench fundamentals
+
+--Background--
+We will now experiment with synthesizable Verilog constructs for creating 
+synchronous circuits. We will build a counter, place it in a testbench and
+test it using some non-synthesizable verilog.
+
+We will also use some verilog constructs for building a testbench and use
+them to test our counter.
+
+We will not be synthesizing circuitry this time.
+
+You will create an variable width counter. Its features are as follows: 
+  -synchronous and asynchronous resets  
+  -synchronously loadable  
+  -can count up or down  
+  -has a default 8-bit output width 
+  -has terminal count output
+  -it will be parameterizible 
+
+Work to do:
+1) Create a hw3 working directory. 
+   Create a work directory.
+   wget the files tb_skel.sv, and updn_cntr.out
+
+2) Code the counter as updn_cntr.sv.  The module _must_ look as follows:
+
+module updn_cntr #(WIDTH=8)(
+    input                   reset_n  ,  //asynchronous reset, active low
+    input                   clk      ,  //clock input
+    input       [WIDTH-1:0] cnt_in   ,  //counter parallel input
+    input                   up_dn    ,  //up, down control; up=1, down=0
+    input                   ena      ,  //enable, active high
+    input                   cnt_load ,  //count/load control; cnt=1, load=0
+    input                   s_reset  ,  //synchronous reset, active high
+    output  reg [WIDTH-1:0] cnt_out  ,  //counter output
+    output                  term_cnt    //terminal cnt, assert when cnt_out=0
+    );
+
+Function:
+  Asynchronous (reset_n) will dominate over all controls.
+  Synchronous reset (s_reset) will come next in priority.      
+  Count enable (ena) is after s_reset.
+  Terminal count is a decoded state output from the counter.
+  The counter counts up or down as commanded by one.
+  The counter will wrap around zero or the maximum count.
+  The signals, up_dn, ena and cnt_load are all synchronous to clk.
+  Counter only counts on the clock's rising edge.
+  
+3) Code a Verilog testbench to test your counter called tb.sv.  Start with the 
+   skeleton code I have given you.  The clock will run at 200Mhz.  
+
+   Apply control signals to the counter using the verilog delay (#) format.
+   Control signals will be applied 100ps after the rising edge of the clock.
+   Create the timing scenario as shown in the attached timing diagram.
+
+4) Compile updn_cntr.sv and tb.sv with the counter instantiated within it.
+   Simulate tb to make sure your counter works as expected.  I have supplied
+   my output for you to check yours.
+
+5) Build a doit.sh script to automate the compilation and simulation steps.
+
+What to turn in:
+  A tar file (hw3.tar) consisting of:  
+  updn_cntr.sv
+  tb.sv
+  doit.sh 
+  updn_cntr.out
+
+  This is an electronic submit.
+
+Grading
+  -Verilog coding of the counter      -45%
+  -Verilog coding of the testbench    -45%
+  -doit script                        -10%
+
