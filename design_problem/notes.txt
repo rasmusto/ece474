@@ -1,0 +1,23 @@
+1.  Data path
+    a)  bus
+    b)  mux
+    c)  register
+    d)  memory
+
+2.  Control
+    a)  state machine - keep clock domains separate
+
+[detect header]
+[clock divider]
+[count bits]
+[count bytes]
+[shift register]
+[averager] -> ADD/Accum + shift by 2
+[memory] 
+                _____       Memory
+serial_data ->  |D  |       |   |
+clk50       ->  |>  |=/=>   |   |
+data_ena    ->  |E  | 8     |   |
+                -----       -----
+            Shift Register    ||
+                               V
