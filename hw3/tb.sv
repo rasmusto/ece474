@@ -41,11 +41,11 @@ end
 initial begin
     @(posedge reset_n);
     ena = 1;
-    @(posedge clk);
-    @(posedge clk);
-    @(posedge clk);
-    @(posedge clk);
-    @(posedge clk);
+    #(CYCLE*4);
+    //@(posedge clk);
+    //@(posedge clk);
+    //@(posedge clk);
+    //@(posedge clk);
     s_reset = 1;
     @(posedge clk);
     s_reset = 0;
@@ -67,7 +67,6 @@ initial begin
     @(posedge clk);
     s_reset = 1;
     @(posedge clk);
-
     //apply stimulus to the counter
 end
 

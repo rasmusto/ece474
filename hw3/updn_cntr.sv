@@ -12,10 +12,10 @@ module updn_cntr #(WIDTH=8)(
 
 always @ (posedge clk, negedge reset_n)
     if      (!reset_n)  cnt_out <= 0;
-    else if (!s_reset)  cnt_out <= 0;
+    else if (s_reset)   cnt_out <= 0;
     else if (ena)
-        if(cnt_load) cnt_out <= cnt_in;
+        if(!cnt_load) cnt_out <= cnt_in;
         else if (up_dn == 1'b1) cnt_out <= cnt_out + 1'b1;
-        else if (up_dn == 0'b1) cnt_out <= cnt_out - 1'b1;
+        else if (up_dn == 1'b0) cnt_out <= cnt_out - 1'b1;
         assign term_cnt  = ~|cnt_out;
 endmodule
