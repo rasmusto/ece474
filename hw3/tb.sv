@@ -54,6 +54,19 @@ initial begin
     ena = 1;
     cnt_load = 0;
     cnt_in = 8'h02;
+    @(posedge clk);
+    ena = 0;
+    up_dn = 0;
+    @(posedge clk);
+    ena = 1;
+    cnt_load = 1;
+    @(posedge clk);
+    @(posedge clk);
+    @(posedge clk);
+    @(posedge clk);
+    @(posedge clk);
+    s_reset = 1;
+    @(posedge clk);
 
     //apply stimulus to the counter
 end
