@@ -19,4 +19,5 @@ then
 fi
 
 echo "Running testbench..."
-vsim -novopt -t 1ps -do tb.tcl tb
+#vsim -novopt -t 1ps -do tb.tcl tb
+vsim  -novopt -quiet -t 1ps -c -do tb.tcl tb

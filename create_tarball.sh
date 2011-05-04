@@ -15,6 +15,8 @@ then
                     --exclude=*.wlf         \
                     --exclude=transcript    \
                     --exclude=work          \
+                    --exclude=*.ps          \
+                    --exclude=.gitignore    \
                     rasmusto_$1
     mv rasmusto_$1 $1
 else
