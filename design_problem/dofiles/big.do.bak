@@ -1,0 +1,27 @@
+##concatenation of all tests
+
+do setup.do
+run 2000
+do data_pat0.do       
+run 2000
+do temp25_fast.do
+run 2000
+do ltdk0.do           
+run 2000
+do ltdk1.do           
+run 2000
+do temp7f.do
+run 2000
+do ltdk2.do           
+run 2000
+do tn_ltdk0.do
+#do ltdk3.do           
+run 2000
+do tn_ltdk1.do
+run 2000
+do non_fast0.do       
+run 2000
+do tn_ltdk2.do
+run 2000
+do non_slow0.do
+run 2000

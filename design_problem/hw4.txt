@@ -1,0 +1,44 @@
+ECE 474 Homework 4
+TAS design 
+
+Background
+In this lab we will take the TAS design we designed in class 
+and design the data paths as well as the state machines for 
+controlling them.  
+
+The Assignment
+I will give you a a top level block diagram of TAS.  What you need 
+to do is to fill in the blocks with the appropriate logic.  This 
+first requires a complete logic design if yours is not complete. 
+
+We took the time to design the logic "on-the-fly" so the data 
+paths and state machines should be pretty well in your minds. 
+
+Work to do:
+  1) Finish designing any other parts of the design. Then code the 
+     modules.  Note: "coding" is not the same as "designing"!
+
+  2) See that you obtain correct operation. Using your list file output
+     and the golden_results file prove correct operation.  A set of .do 
+     files (dofiles.tar) are provided to check your work. 
+
+   The compiling, running, simulation and comparison should be orcestrated 
+   by a doit script as before. There is no synthesis or testbench for this 
+   assignment. 
+
+   Your code must run under my shell script and against my golden_results
+   file for full credit.
+
+   You will need a directory "vectors" for the list filet to write your
+   results to.  Make that in your doit script.
+
+What to turn in:
+    -Submit state machine diagrams for all your state machines as scanned
+     .pdf files in your hw4 directory. Put all your verilog code in a rtl_src
+      directory.  Submit your entire hw4 directory by tarfile to the TEACH website.
+    
+
+ Grading
+   -correct operation with correct answers   %80
+   -correct state machine diagrams           %20
+

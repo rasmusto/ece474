@@ -1,0 +1,4 @@
+list -width 9 -notrig /ram_wr_n="ram_wr_n"   
+list -width 11 -hex -notrig /ram_addr="ram_addr"   
+list -width 8 -hex -notrig /ram_data="ram_data"   
+list -strobe 499 ns,500 ns
