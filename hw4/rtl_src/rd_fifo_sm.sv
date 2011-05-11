@@ -11,14 +11,14 @@ enum reg{
     XX      =   'x} rd_fifo_ns, rd_fifo_ps;
 
 always_ff @ (posedge clk, negedge reset_n)
-    if (!reset_n)   rd_fifo_ps <= no_read;
-    else            rd_fifo_ps <= rd_fifo_ns;
+    if (!reset_n)   rd_fifo_ps <= NO_READ;
+    else            rd_fifo_ps <= RD_FIFO;
 
 always_comb begin
     rd_fifo_ns = XX;
     case (rd_fifo_ps)
-        no_read : if (!empty)   rd_fifo_ns = rd_fifo;
-        rd_fifo :               rd_fifo_ns = no_read;
+        NO_READ : if (!empty)   rd_fifo_ns = RD_FIFO;
+        RD_FIFO :               rd_fifo_ns = NO_READ;
     endcase
 end
 assign fifo_rd = rd_fifo_ps;
