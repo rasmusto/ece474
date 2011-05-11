@@ -2,7 +2,7 @@ module zero_sel_sm(
     input   reset_n,
     input   clk,
     input   fifo_rd,
-    output  zero_sel
+    output  zero_select
 );
 
 enum reg{
@@ -21,5 +21,5 @@ always_comb begin
         SEL_FIFO : if (????)     zero_sel_ns = SEL_ZERO;
     endcase
 end
-assign zero_sel = zero_sel_ps;
+assign zero_select = zero_sel_ps;
 endmodule
