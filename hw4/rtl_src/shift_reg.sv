@@ -10,3 +10,4 @@ always_ff @ (posedge clk_50, negedge reset_n)
     if      (!reset_n)   parallel_data <= 8'h00;
     else if (data_ena)   parallel_data <= {serial_data,parallel_data[7:1]};
 end
+endmodule
