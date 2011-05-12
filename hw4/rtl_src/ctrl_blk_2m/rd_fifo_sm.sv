@@ -6,8 +6,8 @@ module rd_fifo_sm(
 );
 
 enum reg{
-    NO_READ =   1'b0;
-    RD_FIFO =   1'b1;
+    NO_READ =   1'b0,
+    RD_FIFO =   1'b1,
     XX      =   'x} rd_fifo_ns, rd_fifo_ps;
 
 always_ff @ (posedge clk, negedge reset_n)

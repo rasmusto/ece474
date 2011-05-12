@@ -6,8 +6,8 @@ module zero_sel_sm(
 );
 
 enum reg{
-    SEL_ZERO =   1'b0;
-    SEL_FIFO =   1'b1;
+    SEL_ZERO =   1'b0,
+    SEL_FIFO =   1'b1,
     XX      =   'x} zero_sel_ns, zero_sel_ps;
 
 always_ff @ (posedge clk, negedge reset_n)
