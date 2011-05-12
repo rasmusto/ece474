@@ -7,11 +7,11 @@ module wr_fifo_sm(
 );
 
 enum reg [2:0]{
-    HEADER  = 3'b000;
-    BYTE1   = 3'b100;
-    BYTE2   = 3'b101;
-    BYTE3   = 3'b110;
-    BYTE4   = 3'b111;
+    HEADER  = 3'b000,
+    BYTE1   = 3'b100,
+    BYTE2   = 3'b101,
+    BYTE3   = 3'b110,
+    BYTE4   = 3'b111,
     XX      = 'x
 } wr_fifo_ns, wr_fifo_ps;
 
