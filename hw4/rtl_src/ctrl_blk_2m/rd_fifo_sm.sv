@@ -1,6 +1,6 @@
 module rd_fifo_sm(
     input   reset_n,
-    input   clk,
+    input   clk_2,
     input   empty,
     output  fifo_rd
 );

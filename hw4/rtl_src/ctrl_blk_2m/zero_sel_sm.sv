@@ -1,6 +1,6 @@
 module zero_sel_sm(
     input   reset_n,
-    input   clk,
+    input   clk_2,
     input   fifo_rd,
     output  zero_select
 );
